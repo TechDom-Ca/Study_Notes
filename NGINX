@@ -1,6 +1,8 @@
 TO GET STARTED:
-1. Launch an AWS t2-micro instance for NGINX and open ports 22 and 80. Then install nginx on the server.
-2. Launch 3 AWS t2-micro instances for Tomcat app servers. Then install tomcat on the 3 servers.
+1. Launch an AWS t2-micro instance for NGINX and open ports 22 and 80. Then install nginx on the server using the script in the link below:
+https://github.com/TechDom-Ca/package-installation-scripts/blob/main/Nginx_Installation
+2. Launch 3 AWS t2-micro instances for Tomcat app servers. Then install tomcat on the 3 servers using the script in the link below:
+https://github.com/TechDom-Ca/package-installation-scripts/blob/main/Tomcat_Installation
 3. Deploy a .war project from maven to the 3 tomcat servers
 4. Go to the NGINX server to configure the file "/etc/nginx/nginx.conf" by copying the details below into it:
 
