@@ -1,0 +1,36 @@
+TO GET STARTED:
+1. Launch an AWS t2-micro instance for NGINX and open ports 22 and 80. Then install nginx on the server.
+2. Launch 3 AWS t2-micro instances for Tomcat app servers. Then install tomcat on the 3 servers.
+3. Deploy a .war project from maven to the 3 tomcat servers
+4. Go to the NGINX server to configure the file "/etc/nginx/nginx.conf" by copying the details below into it:
+
+events{
+worker_connections 1024;
+}
+http { keepalive_timeout 5;
+upstream tomcatServers {
+  keepalive 50;
+  #Replace 000.00.00.00 with your Tomcat ip address
+  #Depending on the number of servers you have, append more lines
+  server 000.00.00.00:8080;
+
+}
+server {
+   listen 80;
+location / {
+        proxy_set_header  X-Real-lP $remote_addr;
+        proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header  X-Forwarded-Proto $scheme;
+        proxy_set_header        Host $host;
+        proxy_pass http://tomcatServers;
+}
+}
+}
+
+5. Modify the contents of the file "/etc/nginx/nginx.conf" by listing the private ip addresses of the tomcat servers in there.
+6. Run "systemctl restart nginx" to RESTART NGINX.
+7. Go to a web browser to enter "NGINXPublicIPAddress:80/DeployedDirectory"
+8. If you get 502 Bad Gateway, it means that SELinux (Security-Enhanched Linux is in force. Run "setsebool -P httpd_can_network_connect true" to bypass it.
+9. Afterwards, run "systemctl restart nginx" to RESTART NGINX again.
+10. Go to a web browser to enter "NGINXPublicIPAddress:80/DeployedDirectory"
+11. If there is no response, run "nginx -t" to validate the nginx.conf file and then run "nginx -s reload" to reload the configurations.
