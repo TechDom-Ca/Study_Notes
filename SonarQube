@@ -1,0 +1,41 @@
+TO GET STARTED:
+1. Launch an AWS t2 medium instance and open port 9000
+2. Use the installation script below to install SonarQube and other necessary apps:
+https://github.com/TechDom-Ca/package-installation-scripts/blob/main/SonarQube%20Installation
+3. Note that the installation script is a shell script based on switch case. 
+Be sure to pass the following arguments in the following order- manage, install, and launch
+*The "manage" option in $1 helps to manage a new user known as "sonar" and set up password authentication.
+*The "install" option in $1 helps to installing the SonarQube, Java and other apps that will help with the installation.
+*The "launch" option in $1 helps in starting sonarQube as user "sonar"
+4. Enter your PublicIPAddress:9000 on the web browser to login to SonarQube. The default login details are:
+login(username) = admin
+password        = admin 
+5. Go to the build server (eg maven).
+6. Go to the project directory and run the command below:
+mvn sonar:sonar 
+*Note that the first sonar relates to the sonar plugins while the second sonar relates to the goal
+*Before running the "mvn sonar:sonar" command, modify the build script to indicate your IPAddress:9000 & your login details
+*Note that your token can be got from the sonarqube web server (under administration).
+
+        <properties>
+                <jdk.version>1.8</jdk.version>
+                <spring.version>5.1.2.RELEASE</spring.version>
+                <junit.version>4.11</junit.version>
+                <log4j.version>1.2.17</log4j.version>
+                <sonar.host.url>http:ENTERYOURIPADDRESS:9000/</sonar.host.url>
+                <sonar.login>ENTERYOURUSERNAME</sonar.login>
+                <sonar.password>ENTERYOURPASSWORD</sonar.password>
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        </properties>
+
+        <properties>
+                <jdk.version>1.8</jdk.version>
+                <spring.version>5.1.2.RELEASE</spring.version>
+                <junit.version>4.11</junit.version>
+                <log4j.version>1.2.17</log4j.version>
+                <sonar.host.url>http:ENTERYOURIPADDRESS:9000/</sonar.host.url>
+                <sonar.login>ENTERYOURTOKEN</sonar.login>
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        </properties>
