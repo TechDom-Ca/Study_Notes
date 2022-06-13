@@ -1,0 +1,57 @@
+TO GET STARTED:
+1. Launch an AWS instance and open ports 22 and 8081
+2. Install nexus on the ssh client using the script in the link below:
+https://github.com/TechDom-Ca/package-installation-scripts/blob/main/Nexus_Installation
+3. Enter the following on the web browser to access nexus.
+PublicIPAddress:8081  
+4. Login to the web browser using:
+  userName: admin
+  password: admin123
+
+5. Complete the Maven-Nexus Integration by doing the following
+ i. Go to "/opt/maven/conf/settings.xml" to modify and activate the "server" and "mirror" tags
+ *Add projectName,  userName and password
+ *See below what the tag will look like after the modification:
+    <server>
+      <id>nexus</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
+    
+    <mirror>
+      <id>central</id>
+      <name>central</name>
+      <url>http://00.00.00.00.0:8081/repository/maven-public/</url>
+      <mirrorOf>*</mirrorOf>
+    </mirror>
+
+
+ ii. Create maven remote repository in nexus
+  *One for snapshot and another for releases
+  *Naming convention for the repository could be projectName-snapshot or projectName-releases
+  *See sample nexus repo links of a project known as tutorial with IP address, 00.00.00.00.0
+     http://00.00.00.00.0:8081/repository/tutorial-snapshot/  
+     http://00.00.00.00.0:8081/repository/tutorial-releases/
+
+  iii.  Go the "pom.xml" file of the project you want to back up and check for the "distributionManagement" tag
+  iv. Edit the contents of the tag appropriately.
+  *See below what the tag will look like:
+            <distributionManagement>
+            <repository>
+              <id>nexus</id>
+              <name>TechDom Nexus Releases Repository</name>
+              <url>http://00.00.00.00.0:8081/repository/tutorial-releases/</url>
+            </repository>
+
+            <snapshotRepository>
+              <id>nexus</id>
+             <name>TechDom Nexus Snapshot Repository</name>
+              <url>http://00.00.00.00.0:8081/repository/tutorial-snapshot/</url>
+            </snapshotRepository>
+
+        </distributionManagement>
+
+ 
+v. Complete the backup to the remote repository by running the command below:
+mvn deploy
+
