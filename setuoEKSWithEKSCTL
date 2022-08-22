@@ -1,0 +1,127 @@
+Step 1: Create an IAM user for the Set-up
+=========================================
+1. Log in to AWS
+2. Create IAM user with a programmatic access
+3. Either assign "AdministratorAccess" policy or the minimum specified here- https://eksctl.io/usage/minimum-iam-policies/ to the user
+4. If the minimum are to be used, create the 2 "non-AWS-managed" policies and attach all 4 the user
+5. Download credentials for the user.
+
+Step 2: Using the AWS CLI, configure the IAM credentials for eksctl
+===================================================================
+1. If you don't already have the AWS CLI installed in your workspace, install it
+# Install using this guidance- https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+2. Run: "aws configure --profile eksctl" to configure the IAM credentials
+# When you run with "--profile eksctl", it limits the use of the credentials to "eksctl"
+3. Run "aws sts get-caller-identity --profile eksctl" to verify the correctness of the profile
+# When you run with "--profile eksctl", it limits the verification to "eksctl"
+
+Step 3: Create a cluster using eksctl using one of the 4 options below
+======================================================================
+1. You can create using default settings (everything including the node group will be created)
+   Run "eksctl create cluster --profile eksctl"
+   # You will need to run all commands with "--profile eksctl" because of the IAM configuration
+   
+2. You can create by specifying some particular variables (everything including the node group will be created)
+   eksctl create cluster --profile eksctl
+                         --name=lagbaja-cluster \
+                         --region=us-east-1 \
+                         --node-type=t3.micro \
+                         --nodegroup-name=lagbaja-nodegroup \
+                         --nodes=2 \
+                         --nodes-min=1 \
+                         --nodes-max=3
+
+3. You can create a cluster using a configuration file in the link (https://eksctl.io/usage/schema/)
+#This will use your existing VPC and other resources...
+
+--- 
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: existing-vpc
+  region: us-east-1
+  version: "1.21"
+vpc:
+  id: vpc-0e88c3c17fb0c7cca
+  subnets:
+    private:
+      us-east-1a:
+        id: subnet-0699d559ea175cac2
+      us-east-1b:
+        id: subnet-049a9d986dc0d9aa5
+    public:
+      us-east-1a:
+        id: subnet-0e4f8a8dda322fac4
+      us-east-1b:
+        id: subnet-0068c08ea23be99dc
+managedNodeGroups:
+- name: general
+  privateNetworking: true
+  instanceType: t3.small
+  desiredCapacity: 1
+---
+
+
+
+Then, run the command below to create your cluster.
+   eksctl create cluster -f <fileName> --profile eksctl
+   
+4. You can create a cluster using a configuration file in the link (https://eksctl.io/usage/schema/)
+#This will create VPC and other resources for you...
+
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: private-eks
+  region: us-east-1
+  version: "1.21"
+availabilityZones:
+- us-east-1a
+- us-east-1b
+managedNodeGroups:
+- name: general
+  privateNetworking: true
+  instanceType: t3.small
+  desiredCapacity: 1
+- name: spot
+  privateNetworking: true
+  instanceType: t3.small
+  spot: true
+  desiredCapacity: 1
+  labels:
+    role: spot
+  taints:
+  - key: spot
+    value: "true"
+    effect: NoSchedule
+---
+
+Then, run the command below to create your cluster.
+   eksctl create cluster -f <fileName> --profile eksctl
+     
+
+Step 4: Check to see that everything has been well done
+=======================================================
+# To get service, run:
+    kubectl get service
+    
+# To get nodes, run:
+    kubectl get nodes
+    
+# To list EKS clusters
+     eksctl get cluster --profile eksctl
+
+# To list nodegroups in a cluster, run:
+     eksctl get nodegroup --profile eksctl --cluster=<clusterName>
+
+# To list nodes in current kubernetes cluster
+     kubectl get nodes -o wide
+
+Go to AWS to verify the EKS Cluster, nodegroup, CloudFormation Stack, etc.
+
+Step 5: If yo no longer require the cluster, you may destroy it
+===============================================================
+You can delete a cluster, run
+      "eksctl delete cluster --name lagbaja-cluster --profile eksctl"
+      
