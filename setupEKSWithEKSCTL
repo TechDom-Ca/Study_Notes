@@ -75,19 +75,19 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
   name: private-eks
-  region: us-east-1
+  region: us-east-2
   version: "1.21"
 availabilityZones:
-- us-east-1a
-- us-east-1b
+- us-east-2a
+- us-east-2b
 managedNodeGroups:
 - name: general
   privateNetworking: true
-  instanceType: t3.small
+  instanceType: t2.micro
   desiredCapacity: 1
 - name: spot
   privateNetworking: true
-  instanceType: t3.small
+  instanceType: t2.micro
   spot: true
   desiredCapacity: 1
   labels:
