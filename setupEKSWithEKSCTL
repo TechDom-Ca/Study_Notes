@@ -106,7 +106,7 @@ Then, run the command below to create your cluster.
    eksctl create cluster -f <fileName> --profile eksctl
      
 
-#Step 4: Check to see that everything has been well done
+#Step 5: Check to see that everything has been well done
 #=======================================================
 # To get service, run:
     kubectl get service
@@ -125,7 +125,7 @@ Then, run the command below to create your cluster.
 
 Go to AWS to verify the EKS Cluster, nodegroup, CloudFormation Stack, etc.
 
-#Step 5: If yo no longer require the cluster, you may destroy it
+#Step 6: If yo no longer require the cluster, you may destroy it
 #===============================================================
 You can delete a cluster, run
       "eksctl delete cluster --name lagbaja-cluster --profile eksctl"
