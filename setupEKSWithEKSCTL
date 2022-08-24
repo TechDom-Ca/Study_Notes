@@ -42,18 +42,18 @@ metadata:
   region: us-east-1
   version: "1.21"
 vpc:
-  id: vpc-0e88c3c17fb0c7cca
+  id: vpc-0e88c3c1family123
   subnets:
     private:
       us-east-1a:
-        id: subnet-0699d559ea175cac2
+        id: subnet-0699d559ea175dad2
       us-east-1b:
-        id: subnet-049a9d986dc0d9aa5
+        id: subnet-049a9d986dc0dmum1
     public:
       us-east-1a:
-        id: subnet-0e4f8a8dda322fac4
+        id: subnet-0e4f8a8dda322sis3
       us-east-1b:
-        id: subnet-0068c08ea23be99dc
+        id: subnet-0068c08ea23bebro4
 managedNodeGroups:
 - name: general
   privateNetworking: true
