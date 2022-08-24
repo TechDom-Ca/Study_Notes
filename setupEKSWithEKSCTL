@@ -114,19 +114,8 @@ https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 # To get nodes, run:
     kubectl get nodes
     
-# To list EKS clusters
-     eksctl get cluster
-
-# To list nodegroups in a cluster, run:
-     eksctl get nodegroup --cluster=<clusterName>
-
-# To list nodes in current kubernetes cluster
-     kubectl get nodes -o wide
 
 Go to AWS to verify the EKS Cluster, nodegroup, CloudFormation Stack, etc.
-
-#Step 7: If you no longer require the cluster, you may destroy it
-#===============================================================
-You can delete a cluster, run
-      "eksctl delete cluster --name techdomcluster
+      
+  
       
