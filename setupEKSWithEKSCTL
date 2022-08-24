@@ -15,7 +15,12 @@
 3. Run "aws sts get-caller-identity --profile eksctl" to verify the correctness of the profile
 # When you run with "--profile eksctl", it limits the verification to "eksctl"
 
-#Step 3: Create a cluster using eksctl using one of the 4 options below
+#Step 3: Install eksctl
+#======================
+Follow the guidance here: https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html
+
+
+#Step 4: Create a cluster using eksctl using one of the 4 options below
 #======================================================================
 1. You can create using default settings (everything including the node group will be created)
    Run "eksctl create cluster --profile eksctl"
