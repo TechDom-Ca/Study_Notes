@@ -1,13 +1,13 @@
-Step 1: Create an IAM user for the Set-up
-=========================================
+#Step 1: Create an IAM user for the Set-up
+#=========================================
 1. Log in to AWS
 2. Create IAM user with a programmatic access
 3. Either assign "AdministratorAccess" policy or the minimum specified here- https://eksctl.io/usage/minimum-iam-policies/ to the user
 4. If the minimum are to be used, create the 2 "non-AWS-managed" policies and attach all 4 the user
 5. Download credentials for the user.
 
-Step 2: Using the AWS CLI, configure the IAM credentials for eksctl
-===================================================================
+#Step 2: Using the AWS CLI, configure the IAM credentials for eksctl
+#===================================================================
 1. If you don't already have the AWS CLI installed in your workspace, install it
 # Install using this guidance- https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 2. Run: "aws configure --profile eksctl" to configure the IAM credentials
@@ -15,8 +15,8 @@ Step 2: Using the AWS CLI, configure the IAM credentials for eksctl
 3. Run "aws sts get-caller-identity --profile eksctl" to verify the correctness of the profile
 # When you run with "--profile eksctl", it limits the verification to "eksctl"
 
-Step 3: Create a cluster using eksctl using one of the 4 options below
-======================================================================
+#Step 3: Create a cluster using eksctl using one of the 4 options below
+#======================================================================
 1. You can create using default settings (everything including the node group will be created)
    Run "eksctl create cluster --profile eksctl"
    # You will need to run all commands with "--profile eksctl" because of the IAM configuration
@@ -101,8 +101,8 @@ Then, run the command below to create your cluster.
    eksctl create cluster -f <fileName> --profile eksctl
      
 
-Step 4: Check to see that everything has been well done
-=======================================================
+#Step 4: Check to see that everything has been well done
+#=======================================================
 # To get service, run:
     kubectl get service
     
@@ -120,8 +120,8 @@ Step 4: Check to see that everything has been well done
 
 Go to AWS to verify the EKS Cluster, nodegroup, CloudFormation Stack, etc.
 
-Step 5: If yo no longer require the cluster, you may destroy it
-===============================================================
+#Step 5: If yo no longer require the cluster, you may destroy it
+#===============================================================
 You can delete a cluster, run
       "eksctl delete cluster --name lagbaja-cluster --profile eksctl"
       
