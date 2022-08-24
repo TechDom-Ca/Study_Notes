@@ -25,7 +25,7 @@ Follow the guidance here: https://docs.aws.amazon.com/eks/latest/userguide/eksct
    
 2. You can create by specifying some particular variables (everything including the node group will be created)
    eksctl create cluster --name=techdomcluster \
-                         --region=us-east-2 \
+                         --region=us-east-1 \
                          --node-type=t2.micro \
                          --nodegroup-name=techdomnodegroup \
                          --nodes=2 \
@@ -58,7 +58,7 @@ vpc:
 managedNodeGroups:
 - name: general
   privateNetworking: true
-  instanceType: t3.small
+  instanceType: t2.micro
   desiredCapacity: 1
 ---
 
@@ -74,12 +74,12 @@ Then, run the command below to create your cluster.
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
-  name: private-eks
-  region: us-east-2
+  name: new-vpc
+  region: us-east-1
   version: "1.21"
 availabilityZones:
-- us-east-2a
-- us-east-2b
+- us-east-1a
+- us-east-1b
 managedNodeGroups:
 - name: general
   privateNetworking: true
@@ -110,7 +110,7 @@ https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 #=======================================================
 # To get service, run:
     kubectl get service
-     kubectl get service
+     
 # To get nodes, run:
     kubectl get nodes
     
@@ -128,5 +128,5 @@ Go to AWS to verify the EKS Cluster, nodegroup, CloudFormation Stack, etc.
 #Step 7: If you no longer require the cluster, you may destroy it
 #===============================================================
 You can delete a cluster, run
-      "eksctl delete cluster --name lagbaja-cluster
+      "eksctl delete cluster --name techdomcluster
       
