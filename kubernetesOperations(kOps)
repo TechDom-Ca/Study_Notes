@@ -1,0 +1,104 @@
+# https://kubernetes.io/docs/setup/production-environment/tools/kops/
+
+
+KOPS (Kubernetes Operations) software is an automated provisioning system:
+>Fully automated installation
+>Uses DNS to identify clusters
+>Self-healing- everything runs in Auto-Scaling Groups
+>Multiple OS support (Debian, Ubuntu 16.04 supported, CentOS & RHEL, Amazon Linux and CoreOS) 
+>High-Availability support 
+
+TO DO
+=====
+1. Kubectl must have been installed; if not, install it.
+https://kubernetes.io/docs/tasks/tools/
+2. Install KOps on a 64-bit (AMD64 and Intel 64) device architecture.
+https://kubernetes.io/docs/setup/production-environment/tools/kops/
+For Linux, run the following commands:
+   #Download the latest release
+   curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest \
+   | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+   #Make the kops binary executable
+   chmod +x kops-linux-amd64
+   #Move the kops binary to your PATH
+   sudo mv kops-linux-amd64 /usr/local/bin/kops
+3. If using AWS, 
+   > an AWS account is required. 
+   > AWS CLI must have been installed 
+   > IAM keys with adequate permisssions must have been configured. The IAM user will need adequate permissions.
+
+The following are the permissions required by the kops user:
+   > AmazonEC2FullAccess
+   > AmazonRoute53FullAccess
+   > AmazonS3FullAccess
+   > IAMFullAccess
+   > AmazonVPCFullAccess
+   > AmazonSQSFullAccess
+   > AmazonEventBridgeFullAccess
+   
+
+# Copy and store the SecretAccessKey and AccessKeyID for subsequent use
+
+4. Configure the AWS CLI to use the IAM user
+> Run "aws configure" and enter your access and secret key as required
+> Run "aws iam list-users" to see all your configured IAM users
+
+
+5. Create an S3 bucket (preferrably in "us-east-1"; otherwise, more work will be required)
+aws s3api create-bucket \
+    --bucket techdom-canada123-state-store \
+    --region us-east-1
+    
+      
+#Afterwards, run "aws s3 ls" to see a list of buckets you have.
+
+6. Export variables for kops to use because "aws configure" doesn't export them automatically
+export AWS_ACCESS_KEY_ID=$(aws configure get aws_access_key_id)
+export AWS_SECRET_ACCESS_KEY=$(aws configure get aws_secret_access_key)
+
+    
+7. Prepare the local environment to create a cluster
+export NAME=techdom123cluster.k8s.local
+export KOPS_STATE_STORE=s3://techdom-canada123-state-store
+
+
+8. Generate ssh keys by running "ssh-keygen"
+
+9. (Optional) Set availabilty zone
+aws ec2 describe-availability-zones --region us-east-1
+
+10. Export Kubeconfig
+kops export kubecfg --admin=87600h0m0s --kubeconfig ~/workspace/kubeconfig --state=s3://techdom-canada123-state-store --name=${NAME}
+
+11. Create cluster configuration
+kops create cluster \
+    --name=${NAME} \
+    --cloud=aws \
+    --zones=us-east-2a \
+    --ssh-public-key=~/.ssh/id_rsa.pub \
+    --master-size=t2.micro \
+    --master-count=1 \
+    --node-size=t2.micro \
+    --node-count=2
+
+
+12. (Optional) To customize cluster configuration, run:
+kops edit cluster --name ${NAME}
+
+
+13. Build the cluster
+kops update cluster --name ${NAME} --yes --admin
+kops update cluster
+
+
+14. Run few commands:
+kubectl get nodes
+kops update cluster
+kops validate cluster --wait 10m
+
+15. Connect to the other servers via ssh
+ssh -i ~/.ssh/id_rsa ubuntu@ipAddress
+
+
+16. To delete a cluster
+kops delete cluster --name ${NAME} --yes
