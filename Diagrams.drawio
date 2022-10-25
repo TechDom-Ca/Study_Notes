@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-10-25T03:51:25.011Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="AFRsMQzYSzzw-IjWe72x" version="20.4.1" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2022-10-25T05:38:37.306Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="7VUoLuKc18N84Uyr51ap" version="20.4.1" type="github" pages="2">
   <diagram id="n0YX-CEJoB1UbevrSjPl" name="Monolithic Application Architecture">
     <mxGraphModel dx="2742" dy="605" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -55,7 +55,7 @@
         <mxCell id="-gWFEWzkOSPa2LKuE1_3-40" value="&lt;b&gt;&lt;i&gt;Maven&lt;/i&gt;&lt;/b&gt;" style="whiteSpace=wrap;html=1;strokeColor=#006658;fontColor=#5C5C5C;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="-490" y="30" width="40" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="-gWFEWzkOSPa2LKuE1_3-44" value="CICD Tool&lt;br&gt;&lt;b&gt;&lt;i&gt;Jenkins&lt;/i&gt;&lt;/b&gt;" style="whiteSpace=wrap;html=1;strokeColor=#006658;fontColor=#5C5C5C;fillColor=none;" parent="1" vertex="1">
+        <mxCell id="-gWFEWzkOSPa2LKuE1_3-44" value="CICD Tool&lt;br&gt;&lt;b&gt;&lt;i&gt;Jenkins, Bamboo&lt;/i&gt;&lt;/b&gt;" style="whiteSpace=wrap;html=1;strokeColor=#006658;fontColor=#5C5C5C;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="-675" y="220" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="-gWFEWzkOSPa2LKuE1_3-46" value="2. Code pull" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#5C5C5C;" parent="1" vertex="1">
@@ -114,6 +114,9 @@
         </mxCell>
         <mxCell id="lnZVJrbV3pISOHpiNBGS-8" value="6. Integrate and deploy" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#5C5C5C;" vertex="1" parent="1">
           <mxGeometry x="-470" y="250" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TjqHLSXgCUqiHAZbNDQD-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#006658;fontColor=#5C5C5C;fillColor=#21C0A5;" edge="1" parent="1" source="lnZVJrbV3pISOHpiNBGS-11" target="lnZVJrbV3pISOHpiNBGS-9">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="lnZVJrbV3pISOHpiNBGS-11" value="Web servers / Load Balancers&lt;br&gt;&lt;b&gt;&lt;i&gt;Nginx or HA Proxy or HTTPD&lt;/i&gt;&lt;/b&gt;" style="whiteSpace=wrap;html=1;strokeColor=#006658;fontColor=#5C5C5C;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="-160" y="217" width="130" height="60" as="geometry" />
